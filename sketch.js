@@ -9,6 +9,8 @@ var k = 0;
 var fft;
 var w;
 var vect;
+var count = 0;
+var g = 0;
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -29,10 +31,12 @@ function draw() {
     translate(width/2, height/2);
     rotate(radians(frameCount), vect);
     background(255);
-    console.log(shuffledIndex);
     playNote();
     updateNote();
+    // if (count % 29 == 0){
     oneSort(shuffledIndex);
+  // };
+  // count++;
     var spectrum = fft.analyze();
     for (var i = 0; i < spectrum.length; i++){
         var angle = map(i, 0, spectrum.length, 0, 360);
@@ -71,13 +75,19 @@ function shuffle(a) {
 }
 
 function oneSort(arr){
-    for (var i = 0; i < arr.length; i++){
-        if (arr[i] > arr[i + 1]){
-            var temp = arr [i];
-            arr[i] = arr[i + 1];
-            arr[i + 1] = temp;
-            break;
+    // for (var i = 0; i < arr.length; i++){
+    if (g < arr.length){
+        if (arr[g] > arr[g + 1]){
+            var temp = arr [g];
+            arr[g] = arr[g + 1];
+            arr[g + 1] = temp;
+            // break;
         }
+
     }
+    if (g == arr.length){
+      g = 0;
+    }
+    g++;
     return arr;
 }
